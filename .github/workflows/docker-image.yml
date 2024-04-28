@@ -11,6 +11,8 @@ on:
 jobs:
   # Construction process
   build:
+    permissions: write-all
+  
     # Type of machine we are running on
     runs-on: ubuntu-latest
     # Steps to follow
