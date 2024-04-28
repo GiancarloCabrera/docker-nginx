@@ -11,32 +11,34 @@ on:
 jobs:
   # Construction process
   build:
-    permissions: write-all
+    permissions:
+      contents: read
+      packages: write
   
     # Type of machine we are running on
     runs-on: ubuntu-latest
     # Steps to follow
     steps:
-    # We need to use checkout to ensures that the latest version of my code is available to this workflow
-    - uses: actions/checkout@v4
-    # Name of the action being made
-    # - name: Build the Docker image
-    # # command to run in the action
-    #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)\
-    # Using Node JS Setup Action
-    - name: Use Nodejs
-      uses: actions/setup-node@v4
-      with: 
-        node-version: 'latest'
-    - name: Install npm
-      run : npm install
-      # Publish my github action to Github Packages Registry
-    - name: Publish to Github Packages Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
-      with:
-        name: GiancarloCabrera/docker-nginx/react-app
-        registry: docker.pkg.github.com
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-        # dockerfile: Dockerfile
-        # tags: latest
+      # We need to use checkout to ensures that the latest version of my code is available to this workflow
+      - uses: actions/checkout@v4
+      # Name of the action being made
+      # - name: Build the Docker image
+      # # command to run in the action
+      #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)\
+      # Using Node JS Setup Action
+      - name: Use Nodejs
+        uses: actions/setup-node@v4
+        with: 
+          node-version: 'latest'
+      - name: Install npm
+        run : npm install
+        # Publish my github action to Github Packages Registry
+      - name: Publish to Github Packages Registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: GiancarloCabrera/docker-nginx/react-app
+          registry: docker.pkg.github.com
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          # dockerfile: Dockerfile
+          # tags: latest
